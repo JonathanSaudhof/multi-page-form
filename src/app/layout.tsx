@@ -1,12 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { createContext } from "react";
-import { UseFormReturn } from "react-hook-form";
-import { TForm } from "@/lib/schemas/form";
-
-export const FormContext = createContext<{
-  form: UseFormReturn<TForm>;
-}>();
 
 export const metadata: Metadata = {
   title: "Multi-form-page",
