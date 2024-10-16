@@ -5,22 +5,20 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { useTenantFormContext } from "@/context/FormContext";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { pageOneFormSchema, TPageOneForm } from "../../../../lib/schemas/form";
+import { detailsFormSchema, TDetailsForm } from "../../../../lib/schemas/form";
 
 export default function Home() {
-  const { updateFormState } = useTenantFormContext();
-  const router = useRouter();
+  const { updateFormState, navigateTo } = useTenantFormContext();
 
-  const form = useForm<TPageOneForm>({
-    resolver: zodResolver(pageOneFormSchema),
+  const form = useForm<TDetailsForm>({
+    resolver: zodResolver(detailsFormSchema),
     reValidateMode: "onChange",
   });
 
-  const handleSubmit = async (data: TPageOneForm) => {
+  const handleSubmit = async (data: TDetailsForm) => {
     updateFormState(data);
-    router.push("/form-contact");
+    navigateTo("salary");
   };
 
   return (
@@ -33,19 +31,26 @@ export default function Home() {
       }
       content={
         <Form {...form}>
-          <form className="gap-4">
+          <form className="flex flex-col gap-4">
             <CustomInput
               control={form.control}
-              name="firstName"
-              label="First Name"
-              placeholder="John"
+              name="fullName"
+              label="Full Name"
+              placeholder="John Doe"
               required
             />
             <CustomInput
               control={form.control}
-              name="lastName"
-              label="Last Name"
-              placeholder="Doe"
+              name="email"
+              label="E-Mail"
+              placeholder="John.Doe@example.com"
+              required
+            />
+            <CustomInput
+              control={form.control}
+              name="phoneNumber"
+              label="Phone"
+              placeholder="+49123456789"
               required
             />
           </form>
