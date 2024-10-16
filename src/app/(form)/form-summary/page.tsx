@@ -1,12 +1,15 @@
 "use client";
+import { FormCard } from "@/components/Form/FormCard/FormCard";
+import { Button } from "@/components/ui/button";
 import { useTenantFormContext } from "@/context/FormContext";
 
 export default function Page2() {
   const { formState } = useTenantFormContext();
   return (
-    <div>
-      <h1>Form State</h1>
-      <pre>{JSON.stringify(formState)}</pre>
-    </div>
+    <FormCard
+      title="FormSummary"
+      content={<pre>{JSON.stringify(formState)}</pre>}
+      footer={<Button>Submit</Button>}
+    />
   );
 }

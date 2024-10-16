@@ -1,16 +1,8 @@
 "use client";
 import { CustomInput } from "@/components/Form/CustomInput/CustomInput";
+import { FormCard } from "@/components/Form/FormCard/FormCard";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
-import { Progress } from "@/components/ui/progress";
 import { useTenantFormContext } from "@/context/FormContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
@@ -30,16 +22,17 @@ export default function Home() {
     updateFormState(data);
     router.push("/form-contact");
   };
+  console.log(form);
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Personal Information</CardTitle>
-        <CardDescription>
-          <Progress />
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-4">
+    <FormCard
+      title="Personal Information"
+      footer={
+        <Button type="button" onClick={form.handleSubmit(handleSubmit)}>
+          Next
+        </Button>
+      }
+      content={
         <Form {...form}>
           <form className="gap-4">
             <CustomInput
@@ -57,12 +50,8 @@ export default function Home() {
               required
             />
           </form>
-          <Button type="submit" onClick={form.handleSubmit(handleSubmit)}>
-            Next
-          </Button>
         </Form>
-      </CardContent>
-      <CardFooter></CardFooter>
-    </Card>
+      }
+    />
   );
 }
