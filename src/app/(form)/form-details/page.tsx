@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { detailsFormSchema, TDetailsForm } from "../../../../lib/schemas/form";
 
 export default function Home() {
-  const { updateFormState, navigateTo } = useTenantFormContext();
+  const { updateFormState, navigateTo, getFieldLabel } = useTenantFormContext();
 
   const form = useForm<TDetailsForm>({
     resolver: zodResolver(detailsFormSchema),
@@ -35,21 +35,21 @@ export default function Home() {
             <CustomInput
               control={form.control}
               name="fullName"
-              label="Full Name"
+              label={getFieldLabel("fullName")}
               placeholder="John Doe"
               required
             />
             <CustomInput
               control={form.control}
               name="email"
-              label="E-Mail"
+              label={getFieldLabel("email")}
               placeholder="John.Doe@example.com"
               required
             />
             <CustomInput
               control={form.control}
               name="phoneNumber"
-              label="Phone"
+              label={getFieldLabel("phoneNumber")}
               placeholder="+49123456789"
               required
             />

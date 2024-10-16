@@ -16,7 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 export default function FormContactPage() {
-  const { updateFormState, navigateTo } = useTenantFormContext();
+  const { updateFormState, navigateTo, getFieldLabel } = useTenantFormContext();
 
   const form = useForm<TSalaryForm>({
     resolver: zodResolver(salaryFormSchema),
@@ -38,7 +38,7 @@ export default function FormContactPage() {
               name="salary"
               render={({ field }) => (
                 <FormItem className="space-y-3">
-                  <FormLabel>Salary</FormLabel>
+                  <FormLabel>{getFieldLabel("salary")}</FormLabel>
                   <FormControl>
                     <RadioGroup
                       onValueChange={field.onChange}

@@ -21,7 +21,7 @@ export function FormCard({ title, footer, content }: Readonly<FormCardProps>) {
         <CardDescription></CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">{content}</CardContent>
-      <CardFooter>{footer}</CardFooter>
+      <CardFooter className="flex-row-reverse">{footer}</CardFooter>
     </Card>
   );
 }

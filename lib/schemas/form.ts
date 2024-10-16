@@ -21,8 +21,7 @@ const errorMessage = {
 export const formSchema = z.object({
   fullName: z
     .string()
-    .transform((val) => val.split(" ").map((val) => val.trim()))
-    .refine((val) => val.length >= 2, errorMessage.fullName),
+    .refine((val) => val.split(" ").length >= 2, errorMessage.fullName),
   email: z.string().email(errorMessage.email),
   phoneNumber: z.string().refine(
     // found here: https://www.twilio.com/docs/glossary/what-e164#regex-matching-for-e164
