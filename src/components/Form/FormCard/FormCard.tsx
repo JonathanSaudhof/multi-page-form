@@ -1,7 +1,6 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -15,10 +14,11 @@ type FormCardProps = {
 
 export function FormCard({ title, footer, content }: Readonly<FormCardProps>) {
   return (
-    <Card>
+    <Card className="max-w-[500px]">
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
-        <CardDescription></CardDescription>
+        <CardTitle className="text-xl font-medium self-center">
+          {title}
+        </CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">{content}</CardContent>
       <CardFooter className="flex-row-reverse">{footer}</CardFooter>

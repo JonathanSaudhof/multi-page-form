@@ -29,7 +29,9 @@ export function CustomInput<T extends FieldValues>({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{formLabel}</FormLabel>
+          <FormLabel className="text-gray-400 text-xs mx-auto">
+            {formLabel}
+          </FormLabel>
           <FormControl>
             <Input placeholder={placeholder} {...field} />
           </FormControl>

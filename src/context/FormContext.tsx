@@ -14,6 +14,8 @@ export const PAGES = {
   summary: "/form-summary",
 };
 
+const START_PAGE_INDEX = 1;
+
 const FieldLabelMap: {
   [key in keyof TTenantForm]: string;
 } = {
@@ -29,12 +31,14 @@ const TenantFormContext = createContext<{
   submitData: () => void;
   navigateTo: (page: keyof typeof PAGES) => void;
   getFieldLabel: (field: keyof TTenantForm) => string;
+  pageIndex: number;
 }>({
   formState: {},
   updateFormState: () => {},
   submitData: () => {},
   navigateTo: () => {},
   getFieldLabel: () => "",
+  pageIndex: START_PAGE_INDEX,
 });
 
 export const useTenantFormContext = () => useContext(TenantFormContext);
@@ -43,16 +47,19 @@ export function TenantFormContextProvider({
   children,
 }: Readonly<PropsWithChildren>) {
   const [formState, setFormState] = useState<Partial<TTenantForm>>({});
+  const [pageIndex, setPageIndex] = useState(START_PAGE_INDEX);
   const router = useRouter();
 
   useEffect(() => {
     const isStateEmpty = Object.keys(formState).length === 0;
     if (isStateEmpty) {
+      setPageIndex(START_PAGE_INDEX);
       router.push(PAGES.details);
     }
   }, [formState, router]);
 
   const navigateTo = (page: keyof typeof PAGES) => {
+    setPageIndex((prev) => prev + 1);
     router.push(PAGES[page]);
   };
 
@@ -78,6 +85,7 @@ export function TenantFormContextProvider({
     submitData,
     navigateTo,
     getFieldLabel,
+    pageIndex,
   };
 
   return (

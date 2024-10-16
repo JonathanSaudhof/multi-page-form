@@ -27,6 +27,7 @@ export default function FormContactPage() {
     updateFormState(data);
     navigateTo("summary");
   };
+
   return (
     <FormCard
       title="Contact Information"
