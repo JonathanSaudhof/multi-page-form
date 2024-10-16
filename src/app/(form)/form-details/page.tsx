@@ -22,7 +22,6 @@ export default function Home() {
     updateFormState(data);
     router.push("/form-contact");
   };
-  console.log(form);
 
   return (
     <FormCard
