@@ -1,6 +1,6 @@
 export default {
   page: {
-    title: "Multi-form-page",
+    title: "Buena Wohnungsvermietung",
   },
   form: {
     general: {
@@ -10,7 +10,7 @@ export default {
       fullName: {
         label: "Vor- und Nachname",
         placeholder: "Max Mustermann",
-        error: "Bitte den vollständigen Namen eingeben (z.B.:Max Mustermann)",
+        error: "Bitte den vollständigen Namen eingeben",
       },
       email: {
         label: "E-Mail",
@@ -20,7 +20,7 @@ export default {
       phoneNumber: {
         label: "Telefonnr.",
         placeholder: "+49123456789",
-        error: "Bitte eine korrekte Telefonnr. eingeben (z.B. +49123456789)",
+        error: "Telefonnr. im falschen Format +49123456789",
       },
       salary: {
         label: "Gehaltsspanne",

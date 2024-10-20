@@ -1,7 +1,7 @@
 "use client";
+import apartment from "@/assets/apartment.jpg";
 import { TenantFormContextProvider } from "@/context/FormContext";
 import Image from "next/image";
-import apartment from "@/assets/apartment.jpg";
 export default function FormLayout({
   children,
 }: Readonly<{
@@ -13,7 +13,7 @@ export default function FormLayout({
         <div className="flex flex-col space-y-6 w-full md:flex-1 py-8">
           {children}
         </div>
-        <div className="relative flex-1 w-full">
+        <div className="relative flex-1 w-full hidden md:block">
           <Image
             src={apartment}
             alt={"Photo of an apartment from Patrick Perkins from Unsplash"}

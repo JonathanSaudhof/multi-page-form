@@ -8,7 +8,7 @@ export function NavigationButton({
   return (
     <Button
       type="button"
-      className="bg-accent text-accent-foreground rounded-full px-8 py-6 font-bold"
+      className="bg-accent text-accent-foreground rounded-full px-8 md:py-6 font-bold"
       onClick={onClick}
     >
       {children}

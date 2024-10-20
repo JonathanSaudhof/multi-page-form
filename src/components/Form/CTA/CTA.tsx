@@ -8,7 +8,7 @@ export function CTA({
   return (
     <Button
       type="button"
-      className="bg-orange-500 text-accent-foreground rounded-full px-8 py-6 w-full font-bold"
+      className="bg-orange-500 text-accent-foreground rounded-full px-8 md:py-6 w-full font-bold"
       onClick={onClick}
     >
       {children}

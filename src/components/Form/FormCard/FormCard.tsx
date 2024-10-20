@@ -24,9 +24,9 @@ export function FormCard({
   const t = useI18n();
 
   return (
-    <Card className="flex flex-col max-w-[500px] my-6 mx-6 h-[600px] p-6">
+    <Card className="flex flex-col max-w-[500px] my-6 mx-6 h-[550px] md:h-[600px] md:p-6">
       <CardHeader>
-        <CardTitle className="text-2xl text-center font-medium self-center py-4">
+        <CardTitle className="text-xl md:text-2xl text-center font-medium self-center py-4">
           {title ?? t("form.general.title")}
         </CardTitle>
         <ProgressIndicator currentStep={index} />
@@ -34,7 +34,7 @@ export function FormCard({
       <CardContent className="flex flex-col gap-4 py-4 flex-1">
         {content}
       </CardContent>
-      <CardFooter className="flex-row-reverse py-6">{footer}</CardFooter>
+      <CardFooter className="flex-row-reverse md:py-6">{footer}</CardFooter>
     </Card>
   );
 }
