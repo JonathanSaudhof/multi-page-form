@@ -1,29 +1,64 @@
 "use client";
+import { CTA } from "@/components/Form/CTA/CTA";
 import { FormCard } from "@/components/Form/FormCard/FormCard";
-import { Button } from "@/components/ui/button";
 import { useTenantFormContext } from "@/context/FormContext";
-import { TTenantForm } from "@/lib/schemas/form";
+import { useScopedI18n } from "@/locales/client";
+import { PropsWithChildren } from "react";
 
-export default function Page2() {
-  const { formState, getFieldLabel } = useTenantFormContext();
+export default function Summary() {
+  const { formState } = useTenantFormContext();
+  const tFields = useScopedI18n("form.fields");
+  const tPage = useScopedI18n("form.summaryPage");
   return (
     <FormCard
-      title="FormSummary"
+      index={3}
       content={
-        <div className="flex flex-col gap-4">
-          {Object.entries(formState).map(([key, value]) => {
-            return (
-              <div key={key} className="flex gap-4">
-                <span className="text-gray-400 text-xs flex-1">
-                  {getFieldLabel(key as keyof TTenantForm)}:
-                </span>
-                <span className="text-sm font-extralight flex-1">{value}</span>
-              </div>
-            );
-          })}
+        <div className="flex flex-col gap-6">
+          <SummaryRow>
+            <SummaryItemLabel>{tFields("fullName.label")}:</SummaryItemLabel>
+            <SummaryItemValue>{formState.fullName ?? "-"}</SummaryItemValue>
+          </SummaryRow>
+          <SummaryRow>
+            <SummaryItemLabel>{tFields("email.label")}:</SummaryItemLabel>
+            <SummaryItemValue>{formState.email ?? "-"}</SummaryItemValue>
+          </SummaryRow>
+          <SummaryRow>
+            <SummaryItemLabel>{tFields("phoneNumber.label")}:</SummaryItemLabel>
+            <SummaryItemValue>{formState.phoneNumber ?? "-"}</SummaryItemValue>
+          </SummaryRow>
+          <SummaryRow>
+            <SummaryItemLabel>{tFields("salary.label")}:</SummaryItemLabel>
+            <SummaryItemValue>
+              {formState.salary
+                ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-expect-error
+                  tFields("salary.options." + formState.salary)
+                : "-"}
+            </SummaryItemValue>
+          </SummaryRow>
+          <p></p>
         </div>
       }
-      footer={<Button>Submit</Button>}
+      footer={
+        <CTA
+          onClick={function (): void {
+            throw new Error("Function not implemented.");
+          }}
+        >
+          {tPage("cta")}
+        </CTA>
+      }
     />
   );
+}
+
+function SummaryRow({ children }: Readonly<PropsWithChildren>) {
+  return <div className="flex gap-4">{children}</div>;
+}
+
+function SummaryItemLabel({ children }: Readonly<PropsWithChildren>) {
+  return <span className="text-gray-400 text-xs flex-1">{children}</span>;
+}
+function SummaryItemValue({ children }: Readonly<PropsWithChildren>) {
+  return <span className="text-sm font-extralight flex-1">{children}</span>;
 }

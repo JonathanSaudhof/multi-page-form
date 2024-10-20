@@ -1,20 +1,20 @@
 "use client";
 import { CustomInput } from "@/components/Form/CustomInput/CustomInput";
 import { FormCard } from "@/components/Form/FormCard/FormCard";
+import { FormWrapper } from "@/components/Form/FormWrapper/FormWrapper";
 import { NavigationButton } from "@/components/Form/NavigationButton/NavigationButton";
 import { Form } from "@/components/ui/form";
 import { useTenantFormContext } from "@/context/FormContext";
 import { TDetailsForm, detailsFormSchema } from "@/lib/schemas/form";
-import { useI18n } from "@/locales/client";
+import { useI18n, useScopedI18n } from "@/locales/client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 export default function Home() {
-  const { updateFormState, navigateTo, getFieldLabel, formState } =
-    useTenantFormContext();
+  const { updateFormState, navigateTo, formState } = useTenantFormContext();
 
   const t = useI18n();
-
+  const tPage = useScopedI18n("form.detailsPage");
   const form = useForm<TDetailsForm>({
     resolver: zodResolver(detailsFormSchema),
     defaultValues: formState,
@@ -28,37 +28,38 @@ export default function Home() {
 
   return (
     <FormCard
-      footer={
-        <NavigationButton onClick={form.handleSubmit(handleSubmit)}>
-          Next
-        </NavigationButton>
-      }
+      index={1}
       content={
         <Form {...form}>
-          <form className="flex flex-col gap-4">
+          <FormWrapper>
             <CustomInput
               control={form.control}
               name="fullName"
-              label={t("form.detailsPage.fullName.label")}
-              placeholder={t("form.detailsPage.fullName.placeholder")}
+              label={t("form.fields.fullName.label")}
+              placeholder={t("form.fields.fullName.placeholder")}
               required
             />
             <CustomInput
               control={form.control}
               name="email"
-              label={t("form.detailsPage.email.label")}
-              placeholder={t("form.detailsPage.email.placeholder")}
+              label={t("form.fields.email.label")}
+              placeholder={t("form.fields.email.placeholder")}
               required
             />
             <CustomInput
               control={form.control}
               name="phoneNumber"
-              label={t("form.detailsPage.phoneNumber.label")}
-              placeholder={t("form.detailsPage.phoneNumber.placeholder")}
+              label={t("form.fields.phoneNumber.label")}
+              placeholder={t("form.fields.phoneNumber.placeholder")}
               required
             />
-          </form>
+          </FormWrapper>
         </Form>
+      }
+      footer={
+        <NavigationButton onClick={form.handleSubmit(handleSubmit)}>
+          {tPage("cta")}
+        </NavigationButton>
       }
     />
   );

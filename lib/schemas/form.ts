@@ -1,21 +1,12 @@
 import { z } from "zod";
-
+import de from "@/locales/de";
 export type TTenantForm = z.infer<typeof formSchema>;
 
-export const salaryMap = {
-  1: "0 - 1.000 €",
-  2: "1.000 - 2.000 €",
-  3: "2.000 - 3.000 €",
-  4: "3.000 - 4.000 €",
-  5: "Mehr als 4.000 €",
-};
-
-const errorMessage = {
-  fullName: "Please enter your full name (e.g. John Doe)",
-  email: "Please enter a valid email",
-  phoneNumber:
-    "Please enter a valid phone number in the format of +49123456789",
-  salary: "Please select a salary range",
+const errorMessage: { [key: string]: keyof (typeof de)["form"]["fields"] } = {
+  fullName: "fullName",
+  email: "email",
+  phoneNumber: "phoneNumber",
+  salary: "salary",
 };
 
 export const formSchema = z.object({

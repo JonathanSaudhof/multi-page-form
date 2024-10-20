@@ -1,4 +1,5 @@
 import { TTenantForm } from "@/lib/schemas/form";
+import PAGES from "@/routes/pages";
 import { usePathname, useRouter } from "next/navigation";
 import {
   createContext,
@@ -8,39 +9,20 @@ import {
   useState,
 } from "react";
 
-export const PAGES = {
-  details: "/form-details",
-  salary: "/form-salary",
-  summary: "/form-summary",
-};
-
-const START_PAGE_INDEX = 1;
-
-const FieldLabelMap: {
-  [key in keyof TTenantForm]: string;
-} = {
-  fullName: "Name",
-  email: "Email",
-  salary: "Salary",
-  phoneNumber: "Phone Number",
-};
-
 const FIRST_PAGE = PAGES.details;
 
 const TenantFormContext = createContext<{
   formState: Partial<TTenantForm>;
+  // eslint-disable-next-line no-unused-vars
   updateFormState: (data: Partial<TTenantForm>) => void;
   submitData: () => void;
+  // eslint-disable-next-line no-unused-vars
   navigateTo: (page: keyof typeof PAGES) => void;
-  getFieldLabel: (field: keyof TTenantForm) => string;
-  pageIndex: number;
 }>({
   formState: {},
   updateFormState: () => {},
   submitData: () => {},
   navigateTo: () => {},
-  getFieldLabel: () => "",
-  pageIndex: START_PAGE_INDEX,
 });
 
 export const useTenantFormContext = () => useContext(TenantFormContext);
@@ -49,7 +31,6 @@ export function TenantFormContextProvider({
   children,
 }: Readonly<PropsWithChildren>) {
   const [formState, setFormState] = useState<Partial<TTenantForm>>({});
-  const [pageIndex, setPageIndex] = useState(START_PAGE_INDEX);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -58,13 +39,11 @@ export function TenantFormContextProvider({
     const isStateEmpty = Object.keys(formState).length === 0;
     const isFirstPage = pathname === FIRST_PAGE;
     if (isStateEmpty && !isFirstPage) {
-      setPageIndex(START_PAGE_INDEX);
       router.push(FIRST_PAGE);
     }
   }, [formState, pathname, router]);
 
   const navigateTo = (page: keyof typeof PAGES) => {
-    setPageIndex((prev) => prev + 1);
     router.push(PAGES[page]);
   };
 
@@ -80,17 +59,11 @@ export function TenantFormContextProvider({
 
   const submitData = () => {};
 
-  const getFieldLabel = (field: keyof TTenantForm) => {
-    return FieldLabelMap[field];
-  };
-
   const values = {
     formState,
     updateFormState,
     submitData,
     navigateTo,
-    getFieldLabel,
-    pageIndex,
   };
 
   return (

@@ -1,17 +1,19 @@
 import { cn } from "@/lib/utils";
+import { useI18n } from "@/locales/client";
 
-export function ProgressIndicator({ currentStep }: { currentStep: number }) {
+export function ProgressIndicator({
+  currentStep,
+}: Readonly<{ currentStep: number }>) {
+  const t = useI18n();
   const steps = [
-    {
-      title: "User info",
-    },
-    {
-      title: "Salary info",
-    },
-    {
-      title: "Summary",
-    },
+    t("form.detailsPage.progress"),
+    t("form.salaryPage.progress"),
+    t("form.summaryPage.progress"),
   ];
+
+  if (currentStep > steps.length || currentStep < 1) {
+    throw new Error("Current step is greater than the total number of steps");
+  }
 
   return (
     <ol className="items-center w-full space-y-4 flex  sm:space-y-0 pt-6 justify-between">
@@ -25,13 +27,16 @@ export function ProgressIndicator({ currentStep }: { currentStep: number }) {
           darkTextColor: "dark:text-blue-500",
         };
 
-        if (colorCase === 0) {
+        // isCurrent
+        const isCurrent = colorCase === 0;
+        if (isCurrent) {
           color.borderColor = "border-blue-600";
           color.textColor = "text-blue-600";
           color.darkBorderColor = "dark:border-blue-500";
           color.darkTextColor = "dark:text-blue-500";
         }
 
+        // isAhead
         if (colorCase < 0) {
           color.borderColor = "border-gray-500";
           color.textColor = "text-gray-500";
@@ -39,6 +44,7 @@ export function ProgressIndicator({ currentStep }: { currentStep: number }) {
           color.darkTextColor = "dark:text-gray-400";
         }
 
+        // isDone
         if (colorCase > 0) {
           color.borderColor = "border-green-600";
           color.textColor = "text-green-600";
@@ -53,7 +59,7 @@ export function ProgressIndicator({ currentStep }: { currentStep: number }) {
               color.textColor,
               color.darkTextColor
             )}
-            key={index}
+            key={step + index}
           >
             <span
               className={cn(
@@ -64,18 +70,21 @@ export function ProgressIndicator({ currentStep }: { currentStep: number }) {
             >
               {index + 1}
             </span>
-            <span
-              className={cn(
-                "flex-grow border-t border-gray-500 dark:border-gray-400",
-                color.borderColor,
-                color.darkBorderColor
-              )}
-            ></span>
-            <span>
-              <h3 className="font-medium leading-tight text-xs">
-                {step.title}
-              </h3>
-            </span>
+
+            {isCurrent ? (
+              <>
+                <span
+                  className={cn(
+                    "flex-grow border-t border-gray-500 dark:border-gray-400",
+                    color.borderColor,
+                    color.darkBorderColor
+                  )}
+                ></span>
+                <span>
+                  <h3 className="font-medium leading-tight text-sm">{step}</h3>
+                </span>
+              </>
+            ) : null}
 
             <span
               className={cn(
