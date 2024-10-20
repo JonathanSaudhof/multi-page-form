@@ -1,5 +1,5 @@
 import { TTenantForm } from "@/lib/schemas/form";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   createContext,
   PropsWithChildren,
@@ -25,6 +25,8 @@ const FieldLabelMap: {
   phoneNumber: "Phone Number",
 };
 
+const FIRST_PAGE = PAGES.details;
+
 const TenantFormContext = createContext<{
   formState: Partial<TTenantForm>;
   updateFormState: (data: Partial<TTenantForm>) => void;
@@ -49,14 +51,17 @@ export function TenantFormContextProvider({
   const [formState, setFormState] = useState<Partial<TTenantForm>>({});
   const [pageIndex, setPageIndex] = useState(START_PAGE_INDEX);
   const router = useRouter();
+  const pathname = usePathname();
 
+  // NOTE: redirect to first page, if
   useEffect(() => {
     const isStateEmpty = Object.keys(formState).length === 0;
-    if (isStateEmpty) {
+    const isFirstPage = pathname === FIRST_PAGE;
+    if (isStateEmpty && !isFirstPage) {
       setPageIndex(START_PAGE_INDEX);
-      router.push(PAGES.details);
+      router.push(FIRST_PAGE);
     }
-  }, [formState, router]);
+  }, [formState, pathname, router]);
 
   const navigateTo = (page: keyof typeof PAGES) => {
     setPageIndex((prev) => prev + 1);

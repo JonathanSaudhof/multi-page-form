@@ -28,12 +28,7 @@ export const formSchema = z.object({
     (val) => RegExp(/^\+[1-9]\d{1,14}$/).exec(val),
     errorMessage.phoneNumber
   ),
-  salary: z.coerce
-    .number()
-    .min(1)
-    .max(5)
-    .transform((val) => salaryMap[val as unknown as keyof typeof salaryMap])
-    .pipe(z.string()),
+  salary: z.coerce.number().min(1).max(5),
 });
 
 export const detailsFormSchema = formSchema.pick({

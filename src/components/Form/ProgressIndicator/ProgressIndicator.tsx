@@ -47,46 +47,44 @@ export function ProgressIndicator({ currentStep }: { currentStep: number }) {
         }
 
         return (
-          <>
-            <li
+          <li
+            className={cn(
+              "flex items-center gap-2 grow justify-between mr-2",
+              color.textColor,
+              color.darkTextColor
+            )}
+            key={index}
+          >
+            <span
               className={cn(
-                "flex items-center gap-2 grow justify-between mr-2",
-                color.textColor,
-                color.darkTextColor
+                "flex items-center justify-center w-6 h-6 border rounded-full shrink-0 text-xs",
+                color.borderColor,
+                color.darkBorderColor
               )}
-              key={index}
             >
-              <span
-                className={cn(
-                  "flex items-center justify-center w-6 h-6 border rounded-full shrink-0 text-xs",
-                  color.borderColor,
-                  color.darkBorderColor
-                )}
-              >
-                {index + 1}
-              </span>
-              <span
-                className={cn(
-                  "flex-grow border-t border-gray-500 dark:border-gray-400",
-                  color.borderColor,
-                  color.darkBorderColor
-                )}
-              ></span>
-              <span>
-                <h3 className="font-medium leading-tight text-xs">
-                  {step.title}
-                </h3>
-              </span>
+              {index + 1}
+            </span>
+            <span
+              className={cn(
+                "flex-grow border-t border-gray-500 dark:border-gray-400",
+                color.borderColor,
+                color.darkBorderColor
+              )}
+            ></span>
+            <span>
+              <h3 className="font-medium leading-tight text-xs">
+                {step.title}
+              </h3>
+            </span>
 
-              <span
-                className={cn(
-                  "flex-grow border-t border-gray-500 dark:border-gray-400",
-                  color.borderColor,
-                  color.darkBorderColor
-                )}
-              ></span>
-            </li>
-          </>
+            <span
+              className={cn(
+                "flex-grow border-t border-gray-500 dark:border-gray-400",
+                color.borderColor,
+                color.darkBorderColor
+              )}
+            ></span>
+          </li>
         );
       })}
     </ol>

@@ -4,15 +4,20 @@ import { FormCard } from "@/components/Form/FormCard/FormCard";
 import { NavigationButton } from "@/components/Form/NavigationButton/NavigationButton";
 import { Form } from "@/components/ui/form";
 import { useTenantFormContext } from "@/context/FormContext";
+import { TDetailsForm, detailsFormSchema } from "@/lib/schemas/form";
+import { useI18n } from "@/locales/client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { detailsFormSchema, TDetailsForm } from "../../../../lib/schemas/form";
 
 export default function Home() {
-  const { updateFormState, navigateTo, getFieldLabel } = useTenantFormContext();
+  const { updateFormState, navigateTo, getFieldLabel, formState } =
+    useTenantFormContext();
+
+  const t = useI18n();
 
   const form = useForm<TDetailsForm>({
     resolver: zodResolver(detailsFormSchema),
+    defaultValues: formState,
     reValidateMode: "onChange",
   });
 
@@ -23,7 +28,6 @@ export default function Home() {
 
   return (
     <FormCard
-      title="Personal Information"
       footer={
         <NavigationButton onClick={form.handleSubmit(handleSubmit)}>
           Next
@@ -35,22 +39,22 @@ export default function Home() {
             <CustomInput
               control={form.control}
               name="fullName"
-              label={getFieldLabel("fullName")}
-              placeholder="John Doe"
+              label={t("form.detailsPage.fullName.label")}
+              placeholder={t("form.detailsPage.fullName.placeholder")}
               required
             />
             <CustomInput
               control={form.control}
               name="email"
-              label={getFieldLabel("email")}
-              placeholder="John.Doe@example.com"
+              label={t("form.detailsPage.email.label")}
+              placeholder={t("form.detailsPage.email.placeholder")}
               required
             />
             <CustomInput
               control={form.control}
               name="phoneNumber"
-              label={getFieldLabel("phoneNumber")}
-              placeholder="+49123456789"
+              label={t("form.detailsPage.phoneNumber.label")}
+              placeholder={t("form.detailsPage.phoneNumber.placeholder")}
               required
             />
           </form>

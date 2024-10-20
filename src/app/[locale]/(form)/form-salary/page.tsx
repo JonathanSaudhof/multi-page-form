@@ -16,10 +16,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 export default function FormContactPage() {
-  const { updateFormState, navigateTo, getFieldLabel } = useTenantFormContext();
+  const { updateFormState, navigateTo, getFieldLabel, formState } =
+    useTenantFormContext();
 
   const form = useForm<TSalaryForm>({
     resolver: zodResolver(salaryFormSchema),
+    defaultValues: formState,
     reValidateMode: "onChange",
   });
 
@@ -30,7 +32,6 @@ export default function FormContactPage() {
 
   return (
     <FormCard
-      title="Contact Information"
       content={
         <Form {...form}>
           <form className="w-2/3 space-y-6">
@@ -43,7 +44,7 @@ export default function FormContactPage() {
                   <FormControl>
                     <RadioGroup
                       onValueChange={field.onChange}
-                      defaultValue={field.value}
+                      defaultValue={`${field.value}`}
                       className="flex flex-col space-y-1"
                     >
                       {Object.entries(salaryMap).map(([key, value]) => (
