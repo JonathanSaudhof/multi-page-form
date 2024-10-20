@@ -14,6 +14,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <nav className="bg-muted text-muted-foreground px-4 py-8 text-xl font-thin font-mono">
+          Tenant Application
+        </nav>
         <main className="container mx-auto min-h-screen py-4">{children}</main>
       </body>
     </html>

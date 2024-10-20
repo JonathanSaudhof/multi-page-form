@@ -10,14 +10,14 @@ export default function Page2() {
     <FormCard
       title="FormSummary"
       content={
-        <div className="flex flex-col gap-4 w-8/12 mx-auto">
+        <div className="flex flex-col gap-4">
           {Object.entries(formState).map(([key, value]) => {
             return (
-              <div key={key} className="flex gap-4 justify-between">
-                <span className="text-gray-400 text-xs">
+              <div key={key} className="flex gap-4">
+                <span className="text-gray-400 text-xs flex-1">
                   {getFieldLabel(key as keyof TTenantForm)}:
                 </span>
-                <span className="text-sm font-extralight">{value}</span>
+                <span className="text-sm font-extralight flex-1">{value}</span>
               </div>
             );
           })}

@@ -1,7 +1,7 @@
 "use client";
 import { CustomInput } from "@/components/Form/CustomInput/CustomInput";
 import { FormCard } from "@/components/Form/FormCard/FormCard";
-import { Button } from "@/components/ui/button";
+import { NavigationButton } from "@/components/Form/NavigationButton/NavigationButton";
 import { Form } from "@/components/ui/form";
 import { useTenantFormContext } from "@/context/FormContext";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -25,9 +25,9 @@ export default function Home() {
     <FormCard
       title="Personal Information"
       footer={
-        <Button type="button" onClick={form.handleSubmit(handleSubmit)}>
+        <NavigationButton onClick={form.handleSubmit(handleSubmit)}>
           Next
-        </Button>
+        </NavigationButton>
       }
       content={
         <Form {...form}>
