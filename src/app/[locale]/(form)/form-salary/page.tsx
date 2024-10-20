@@ -93,7 +93,7 @@ export default function FormContactPage() {
                       >
                         {
                           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                          // @ts-expect-error
+                          // @ts-ignore
                           t(`form.fields.salary.error`)
                         }
                       </p>
