@@ -3,11 +3,11 @@ import { z } from "zod";
 export type TTenantForm = z.infer<typeof formSchema>;
 
 export const salaryMap = {
-  1: "0 - 1.000",
-  2: "1.000 - 2.000",
-  3: "2.000 - 3.000",
-  4: "3.000 - 4.000",
-  5: "Mehr als 4.000",
+  1: "0 - 1.000 €",
+  2: "1.000 - 2.000 €",
+  3: "2.000 - 3.000 €",
+  4: "3.000 - 4.000 €",
+  5: "Mehr als 4.000 €",
 };
 
 const errorMessage = {
