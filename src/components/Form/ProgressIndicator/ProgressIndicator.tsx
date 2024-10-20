@@ -16,7 +16,7 @@ export function ProgressIndicator({
   }
 
   return (
-    <ol className="items-center w-full md:space-y-4 flex  space-y-0 pt-6 justify-between">
+    <ol className="items-center w-full  flex  space-y-0 pt-6 justify-between">
       {steps.map((step, index) => {
         const colorCase = currentStep - 1 - index;
 
